@@ -16,7 +16,7 @@ import re  # noqa: F401
 
 import six
 
-from diffbot_enhance.configuration import Configuration
+from diffbot_enhance_client.configuration import Configuration
 
 
 class EnhanceResponse(object):

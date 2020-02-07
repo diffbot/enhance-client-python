@@ -24,10 +24,10 @@ import tempfile
 import six
 from six.moves.urllib.parse import quote
 
-from diffbot_enhance.configuration import Configuration
-import diffbot_enhance.models
-from diffbot_enhance import rest
-from diffbot_enhance.exceptions import ApiValueError
+from diffbot_enhance_client.configuration import Configuration
+import diffbot_enhance_client.models
+from diffbot_enhance_client import rest
+from diffbot_enhance_client.exceptions import ApiValueError
 
 
 class ApiClient(object):
@@ -78,7 +78,7 @@ class ApiClient(object):
             self.default_headers[header_name] = header_value
         self.cookie = cookie
         # Set default User-Agent.
-        self.user_agent = 'OpenAPI-Generator/1.0.0/python'
+        self.user_agent = 'OpenAPI-Generator/0.1.0/python'
         self.client_side_validation = configuration.client_side_validation
 
     def __del__(self):
@@ -280,7 +280,7 @@ class ApiClient(object):
             if klass in self.NATIVE_TYPES_MAPPING:
                 klass = self.NATIVE_TYPES_MAPPING[klass]
             else:
-                klass = getattr(diffbot_enhance.models, klass)
+                klass = getattr(diffbot_enhance_client.models, klass)
 
         if klass in self.PRIMITIVE_TYPES:
             return self.__deserialize_primitive(data, klass)

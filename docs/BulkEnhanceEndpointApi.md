@@ -1,4 +1,4 @@
-# diffbot_enhance.BulkEnhanceEndpointApi
+# diffbot_enhance_client.BulkEnhanceEndpointApi
 
 All URIs are relative to *https://kg.diffbot.com*
 
@@ -22,12 +22,12 @@ Get status of a bulk Enhance job
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
 # Create an instance of the API class
-api_instance = diffbot_enhance.BulkEnhanceEndpointApi()
+api_instance = diffbot_enhance_client.BulkEnhanceEndpointApi()
 bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
 token = 'token_example' # str | Diffbot Token (optional)
 
@@ -83,12 +83,12 @@ Enhance endpoint to find person or organization using partial data
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
 # Create an instance of the API class
-api_instance = diffbot_enhance.BulkEnhanceEndpointApi()
+api_instance = diffbot_enhance_client.BulkEnhanceEndpointApi()
 token = 'token_example' # str | Diffbot Token (optional)
 tag = ['tag_example'] # list[str] | Tag (optional)
 mode = 'mode_example' # str | `mode=refresh` indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data. (optional)
@@ -160,12 +160,12 @@ Poll a bulk Enhance job
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
 # Create an instance of the API class
-api_instance = diffbot_enhance.BulkEnhanceEndpointApi()
+api_instance = diffbot_enhance_client.BulkEnhanceEndpointApi()
 bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
 token = 'token_example' # str | Diffbot Token (optional)
 csvmode = 'csvmode_example' # str | Return results as csv (optional)
@@ -223,12 +223,12 @@ Stop an incomplete job
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
 # Create an instance of the API class
-api_instance = diffbot_enhance.BulkEnhanceEndpointApi()
+api_instance = diffbot_enhance_client.BulkEnhanceEndpointApi()
 bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
 token = 'token_example' # str | Diffbot Token (optional)
 

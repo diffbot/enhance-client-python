@@ -15,9 +15,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import diffbot_enhance
-from diffbot_enhance.models.enhance_response import EnhanceResponse  # noqa: E501
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.models.enhance_response import EnhanceResponse  # noqa: E501
+from diffbot_enhance_client.rest import ApiException
 
 
 class TestEnhanceResponse(unittest.TestCase):
@@ -32,7 +32,7 @@ class TestEnhanceResponse(unittest.TestCase):
     def testEnhanceResponse(self):
         """Test EnhanceResponse"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = diffbot_enhance.models.enhance_response.EnhanceResponse()  # noqa: E501
+        # model = diffbot_enhance_client.models.enhance_response.EnhanceResponse()  # noqa: E501
         pass
 
 

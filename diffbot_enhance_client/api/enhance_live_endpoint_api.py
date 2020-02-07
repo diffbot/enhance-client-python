@@ -18,8 +18,8 @@ import re  # noqa: F401
 # python 2 and python 3 compatibility library
 import six
 
-from diffbot_enhance.api_client import ApiClient
-from diffbot_enhance.exceptions import (
+from diffbot_enhance_client.api_client import ApiClient
+from diffbot_enhance_client.exceptions import (
     ApiTypeError,
     ApiValueError
 )
