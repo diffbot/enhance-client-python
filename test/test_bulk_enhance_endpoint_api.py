@@ -15,16 +15,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import diffbot_enhance
-from diffbot_enhance.api.bulk_enhance_endpoint_api import BulkEnhanceEndpointApi  # noqa: E501
-from diffbot_enhance.rest import ApiException
+import enhance_client
+from enhance_client.api.bulk_enhance_endpoint_api import BulkEnhanceEndpointApi  # noqa: E501
+from enhance_client.rest import ApiException
 
 
 class TestBulkEnhanceEndpointApi(unittest.TestCase):
     """BulkEnhanceEndpointApi unit test stubs"""
 
     def setUp(self):
-        self.api = diffbot_enhance.api.bulk_enhance_endpoint_api.BulkEnhanceEndpointApi()  # noqa: E501
+        self.api = enhance_client.api.bulk_enhance_endpoint_api.BulkEnhanceEndpointApi()  # noqa: E501
 
     def tearDown(self):
         pass

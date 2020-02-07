@@ -13,8 +13,8 @@
 
 from setuptools import setup, find_packages  # noqa: H301
 
-NAME = "diffbot-enhance"
-VERSION = "1.0.0"
+NAME = "enhance_client"
+VERSION = "0.1.0"
 # To install the library, run the following
 #
 # python setup.py install
@@ -30,7 +30,7 @@ setup(
     description="Diffbot Enhance Service",
     author="OpenAPI Generator community",
     author_email="support@diffbot.com",
-    url="",
+    url="https://github.com/diffbot/enhance-client-python",
     keywords=["OpenAPI", "OpenAPI-Generator", "Diffbot Enhance Service"],
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),

@@ -15,9 +15,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import diffbot_enhance
-from diffbot_enhance.models.request_error import RequestError  # noqa: E501
-from diffbot_enhance.rest import ApiException
+import enhance_client
+from enhance_client.models.request_error import RequestError  # noqa: E501
+from enhance_client.rest import ApiException
 
 
 class TestRequestError(unittest.TestCase):
@@ -32,7 +32,7 @@ class TestRequestError(unittest.TestCase):
     def testRequestError(self):
         """Test RequestError"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = diffbot_enhance.models.request_error.RequestError()  # noqa: E501
+        # model = enhance_client.models.request_error.RequestError()  # noqa: E501
         pass
 
 
