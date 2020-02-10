@@ -125,6 +125,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestError'
+  /kg/enhance_endpoint/bulk/{bulkjobId}:
+    get:
+      tags:
+      - Bulk Enhance Endpoint
+      summary: Bulk Enhance Poll Endpoint
+      description: Poll a bulk Enhance job
+      operationId: pollBulkjob
+      parameters:
+      - name: token
+        in: query
+        description: Diffbot Token
+        schema:
+          type: string
+      - name: bulkjobId
+        in: path
+        description: Bulkjob Id
+        required: true
+        schema:
+          type: string
+      - name: csvmode
+        in: query
+        description: Return results as csv
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Enhanced entity
+          content:
+            application/json:
+              schema:
+                type: object
+        "201":
+          description: Bulkjob is still executing or is stopped
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkjobStatusResponse'
+        "400":
+          description: Invalid bulkjobId
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        "401":
+          description: Token not specified or other client errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        "404":
+          description: Bulkjob not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
   /kg/enhance_endpoint/bulk:
     post:
       tags:
@@ -223,67 +284,6 @@ paths:
                 $ref: '#/components/schemas/RequestError'
         "503":
           description: Request too large
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
-  /kg/enhance_endpoint/bulk/{bulkjobId}:
-    get:
-      tags:
-      - Bulk Enhance Endpoint
-      summary: Bulk Enhance Poll Endpoint
-      description: Poll a bulk Enhance job
-      operationId: pollBulkjob
-      parameters:
-      - name: token
-        in: query
-        description: Diffbot Token
-        schema:
-          type: string
-      - name: bulkjobId
-        in: path
-        description: Bulkjob Id
-        required: true
-        schema:
-          type: string
-      - name: csvmode
-        in: query
-        description: Return results as csv
-        schema:
-          type: string
-      responses:
-        "200":
-          description: Enhanced entity
-          content:
-            application/json:
-              schema:
-                type: object
-        "201":
-          description: Bulkjob is still executing or is stopped
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkjobStatusResponse'
-        "400":
-          description: Invalid bulkjobId
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
-        "401":
-          description: Token not specified or other client errors
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
-        "404":
-          description: Bulkjob not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
-        "500":
-          description: Internal Server Error
           content:
             application/json:
               schema:
