@@ -1,4 +1,4 @@
-# diffbot_enhance.EnhanceLiveEndpointApi
+# diffbot_enhance_client.EnhanceLiveEndpointApi
 
 All URIs are relative to *https://kg.diffbot.com*
 
@@ -19,12 +19,12 @@ Enhance endpoint to find person or organization using partial data
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
 # Create an instance of the API class
-api_instance = diffbot_enhance.EnhanceLiveEndpointApi()
+api_instance = diffbot_enhance_client.EnhanceLiveEndpointApi()
 token = 'token_example' # str | Diffbot Token (optional)
 type = 'type_example' # str | Diffbot entity type (optional)
 id = 'id_example' # str | DiffbotId of entity to enhance. Parameter can be used with types `Person` and `Organization` (optional)
