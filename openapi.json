@@ -1,0 +1,726 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Diffbot Enhance Service",
+    "description" : "Enhance is an API to find a person or organization in the Knowledge Graph using partial data",
+    "termsOfService" : "https://www.diffbot.com/terms/",
+    "contact" : {
+      "email" : "support@diffbot.com"
+    },
+    "version" : "v1.0.0",
+    "x-logo" : {
+      "url" : "/Diffbot_Logo.png",
+      "altText" : "Diffbot logo"
+    }
+  },
+  "servers" : [ {
+    "url" : "https://kg.diffbot.com",
+    "description" : "Diffbot KG endpoint"
+  } ],
+  "tags" : [ {
+    "name" : "Bulk Enhance Endpoint",
+    "description" : "Enhance Bulk Endpoint"
+  }, {
+    "name" : "Enhance Live Endpoint",
+    "description" : "Enhance Live Endpoint"
+  } ],
+  "paths" : {
+    "/kg/enhance_endpoint/bulk" : {
+      "post" : {
+        "tags" : [ "Bulk Enhance Endpoint" ],
+        "summary" : "Bulk Enhance Endpoint",
+        "description" : "Enhance endpoint to find person or organization using partial data",
+        "operationId" : "enhanceBulkjob",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "query",
+          "description" : "Diffbot Token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "tag",
+          "in" : "query",
+          "description" : "Tag",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "description" : "`mode=refresh` indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "nonCanonicalFacts",
+          "in" : "query",
+          "description" : "`nonCanonicalFacts=true` returns non-canonical facts.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "jsonmode",
+          "in" : "query",
+          "description" : "`jsonmode=extended` returns origin information for facts.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "rocketReachToken",
+          "in" : "query",
+          "description" : "rocketReach token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "webhookurl",
+          "in" : "query",
+          "description" : "Webhook URL",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Diffbot-RequestId",
+          "in" : "header",
+          "description" : "Request UUID for tracking. If available, will be set on response.",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Bulk query payload",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Acknowledgement with bulkjobId",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BulkjobAccepted"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error parsing request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token not specified or other client errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Insufficient credits",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Request too large",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kg/enhance_endpoint/bulk/{bulkjobId}/stop" : {
+      "get" : {
+        "tags" : [ "Bulk Enhance Endpoint" ],
+        "summary" : "Bulkjob stop",
+        "description" : "Stop an incomplete job",
+        "operationId" : "stopBulkjob",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "query",
+          "description" : "Diffbot Token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "bulkjobId",
+          "in" : "path",
+          "description" : "Bulkjob Id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Enhanced entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BulkjobRecoveryStatusResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid bulkjobId",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token not specified or other client errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Bulkjob not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kg/enhance_endpoint/bulk/{bulkjobId}/status" : {
+      "get" : {
+        "tags" : [ "Bulk Enhance Endpoint" ],
+        "summary" : "Bulk Enhance Status Endpoint",
+        "description" : "Get status of a bulk Enhance job",
+        "operationId" : "bulkjobStatus",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "query",
+          "description" : "Diffbot Token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "bulkjobId",
+          "in" : "path",
+          "description" : "Bulkjob Id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Bulkjob status",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BulkjobStatusResponse"
+                }
+              }
+            }
+          },
+          "201" : {
+            "description" : "Bulkjob is still executing or is stopped",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BulkjobStatusResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid bulkjobId",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token not specified or other client errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Bulkjob not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kg/enhance_endpoint/bulk/{bulkjobId}" : {
+      "get" : {
+        "tags" : [ "Bulk Enhance Endpoint" ],
+        "summary" : "Bulk Enhance Poll Endpoint",
+        "description" : "Poll a bulk Enhance job",
+        "operationId" : "pollBulkjob",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "query",
+          "description" : "Diffbot Token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "bulkjobId",
+          "in" : "path",
+          "description" : "Bulkjob Id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "csvmode",
+          "in" : "query",
+          "description" : "Return results as csv",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Enhanced entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            }
+          },
+          "201" : {
+            "description" : "Bulkjob is still executing or is stopped",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BulkjobStatusResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid bulkjobId",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token not specified or other client errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Bulkjob not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kg/enhance_endpoint" : {
+      "get" : {
+        "tags" : [ "Enhance Live Endpoint" ],
+        "summary" : "Live Enhance Endpoint",
+        "description" : "Enhance endpoint to find person or organization using partial data",
+        "operationId" : "enhance",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "query",
+          "description" : "Diffbot Token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "Diffbot entity type",
+          "schema" : {
+            "type" : "string",
+            "format" : "enum",
+            "enum" : [ "Person", "Organization" ]
+          }
+        }, {
+          "name" : "id",
+          "in" : "query",
+          "description" : "DiffbotId of entity to enhance. Parameter can be used with types `Person` and `Organization`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "description" : "Name of the entity to enhance. Parameter can be used with types `Person` and `Organization`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "url",
+          "in" : "query",
+          "description" : "Origin or homepage URI of entity to enhance. Parameter can be used with types `Person` and `Organization`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "phone",
+          "in" : "query",
+          "description" : "Phone of the entity to enhance. Parameter can be used with types `Person` and `Organization`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "email",
+          "in" : "query",
+          "description" : "Email of the entity to enhance. Parameter can be used only with type `Person`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "description",
+          "in" : "query",
+          "description" : "Description of the entity to enhance. Parameter can be used with types `Person` and `Organization`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "employer",
+          "in" : "query",
+          "description" : "Employer of the entity to enhance. Parameter can be used only with type `Person`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "Title of the entity to enhance. Parameter can be used only with type `Person`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "school",
+          "in" : "query",
+          "description" : "School of the entity to enhance. Parameter can be used only with type `Person`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "location",
+          "in" : "query",
+          "description" : "Location of the entity to enhance. Parameter can be used with types `Person` and `Organization`",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "description" : "`mode=refresh` indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "nonCanonicalFacts",
+          "in" : "query",
+          "description" : "`nonCanonicalFacts=true` returns non-canonical facts.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "jsonmode",
+          "in" : "query",
+          "description" : "`jsonmode=extended` returns origin information for facts.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "rocketReachToken",
+          "in" : "query",
+          "description" : "rocketReach token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Diffbot-RequestId",
+          "in" : "header",
+          "description" : "Request UUID for tracking. If available, will be set on response.",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Enhanced entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/EnhanceResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error parsing request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token not specified or other client errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Insufficient credits",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "BulkjobAccepted" : {
+        "type" : "object",
+        "properties" : {
+          "job_id" : {
+            "type" : "string",
+            "description" : "Bulkjob Id for checking status and downloading results"
+          }
+        }
+      },
+      "RequestError" : {
+        "type" : "object",
+        "properties" : {
+          "error" : {
+            "type" : "boolean",
+            "description" : "Always `true`"
+          },
+          "code" : {
+            "type" : "integer",
+            "description" : "Error code (same as the HTTP status code)",
+            "format" : "int32"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Error message"
+          },
+          "query" : {
+            "type" : "object",
+            "description" : "Submitted Enhance query"
+          }
+        }
+      },
+      "BulkjobRecoveryStatusResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Bulkjob recovery status",
+            "enum" : [ "NOT_STARTED", "IN_PROCESS", "COMPLETE", "COMPLETE_WITH_FAILURES", "STOPPED", "ERROR_FINALIZING", "UNKNOWN" ]
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Bulkjob recovery status message"
+          }
+        }
+      },
+      "BulkjobStatus" : {
+        "type" : "object",
+        "properties" : {
+          "job_id" : {
+            "type" : "string",
+            "description" : "Bulkjob Id"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Bulkjob status message"
+          },
+          "jobs_total" : {
+            "type" : "integer",
+            "description" : "Number of jobs in bulkjob",
+            "format" : "int32"
+          },
+          "jobs_completed" : {
+            "type" : "integer",
+            "description" : "Number of jobs completed in bulkjob.",
+            "format" : "int32"
+          },
+          "status" : {
+            "type" : "string",
+            "description" : "Status of Bulkjob. One of {NOT_STARTED, IN_PROCESS, COMPLETE, COMPLETE_WITH_FAILURES, STOPPED, ERROR_FINALIZING, UNKNOWN}",
+            "enum" : [ "NOT_STARTED", "IN_PROCESS", "COMPLETE", "COMPLETE_WITH_FAILURES", "STOPPED", "ERROR_FINALIZING", "UNKNOWN" ]
+          },
+          "estimate_remaining_time" : {
+            "type" : "integer",
+            "description" : "Estimated remaining time for bulkjob to complete (in seconds). `null` if job is completed or not started.",
+            "format" : "int64"
+          }
+        },
+        "description" : "Bulkjob status"
+      },
+      "BulkjobStatusResponse" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "integer",
+            "description" : "Bulkjob status code (same as the HTTP status code)",
+            "format" : "int32"
+          },
+          "content" : {
+            "$ref" : "#/components/schemas/BulkjobStatus"
+          }
+        }
+      },
+      "EnhanceResponse" : {
+        "type" : "object",
+        "properties" : {
+          "score" : {
+            "type" : "object",
+            "description" : "Enhance score"
+          },
+          "enhanced" : {
+            "type" : "object",
+            "description" : "Enhanced entity. Can be null if no entity was found."
+          },
+          "query" : {
+            "type" : "object",
+            "description" : "Submitted Enhance query"
+          },
+          "warnings" : {
+            "type" : "object",
+            "description" : "Any warnings while enhancing entity"
+          }
+        }
+      }
+    }
+  }
+}

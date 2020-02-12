@@ -1,4 +1,4 @@
-# diffbot_enhance.BulkEnhanceEndpointApi
+# diffbot_enhance_client.BulkEnhanceEndpointApi
 
 All URIs are relative to *https://kg.diffbot.com*
 
@@ -22,21 +22,23 @@ Get status of a bulk Enhance job
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
-# Create an instance of the API class
-api_instance = diffbot_enhance.BulkEnhanceEndpointApi()
-bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
+# Enter a context with an instance of the API client
+with diffbot_enhance_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = diffbot_enhance_client.BulkEnhanceEndpointApi(api_client)
+    bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
 token = 'token_example' # str | Diffbot Token (optional)
 
-try:
-    # Bulk Enhance Status Endpoint
-    api_response = api_instance.bulkjob_status(bulkjob_id, token=token)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling BulkEnhanceEndpointApi->bulkjob_status: %s\n" % e)
+    try:
+        # Bulk Enhance Status Endpoint
+        api_response = api_instance.bulkjob_status(bulkjob_id, token=token)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling BulkEnhanceEndpointApi->bulkjob_status: %s\n" % e)
 ```
 
 ### Parameters
@@ -72,7 +74,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **enhance_bulkjob**
-> BulkjobAccepted enhance_bulkjob(token=token, tag=tag, mode=mode, non_canonical_facts=non_canonical_facts, jsonmode=jsonmode, lead_iq_token=lead_iq_token, rocket_reach_token=rocket_reach_token, webhookurl=webhookurl, x_diffbot_request_id=x_diffbot_request_id, request_body=request_body)
+> BulkjobAccepted enhance_bulkjob(token=token, tag=tag, mode=mode, non_canonical_facts=non_canonical_facts, jsonmode=jsonmode, rocket_reach_token=rocket_reach_token, webhookurl=webhookurl, x_diffbot_request_id=x_diffbot_request_id, request_body=request_body)
 
 Bulk Enhance Endpoint
 
@@ -83,29 +85,30 @@ Enhance endpoint to find person or organization using partial data
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
-# Create an instance of the API class
-api_instance = diffbot_enhance.BulkEnhanceEndpointApi()
-token = 'token_example' # str | Diffbot Token (optional)
+# Enter a context with an instance of the API client
+with diffbot_enhance_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = diffbot_enhance_client.BulkEnhanceEndpointApi(api_client)
+    token = 'token_example' # str | Diffbot Token (optional)
 tag = ['tag_example'] # list[str] | Tag (optional)
 mode = 'mode_example' # str | `mode=refresh` indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data. (optional)
 non_canonical_facts = 'non_canonical_facts_example' # str | `nonCanonicalFacts=true` returns non-canonical facts. (optional)
 jsonmode = 'jsonmode_example' # str | `jsonmode=extended` returns origin information for facts. (optional)
-lead_iq_token = 'lead_iq_token_example' # str | leadIQ token (optional)
 rocket_reach_token = 'rocket_reach_token_example' # str | rocketReach token (optional)
 webhookurl = 'webhookurl_example' # str | Webhook URL (optional)
 x_diffbot_request_id = 'x_diffbot_request_id_example' # str | Request UUID for tracking. If available, will be set on response. (optional)
 request_body = None # list[object] | Bulk query payload (optional)
 
-try:
-    # Bulk Enhance Endpoint
-    api_response = api_instance.enhance_bulkjob(token=token, tag=tag, mode=mode, non_canonical_facts=non_canonical_facts, jsonmode=jsonmode, lead_iq_token=lead_iq_token, rocket_reach_token=rocket_reach_token, webhookurl=webhookurl, x_diffbot_request_id=x_diffbot_request_id, request_body=request_body)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling BulkEnhanceEndpointApi->enhance_bulkjob: %s\n" % e)
+    try:
+        # Bulk Enhance Endpoint
+        api_response = api_instance.enhance_bulkjob(token=token, tag=tag, mode=mode, non_canonical_facts=non_canonical_facts, jsonmode=jsonmode, rocket_reach_token=rocket_reach_token, webhookurl=webhookurl, x_diffbot_request_id=x_diffbot_request_id, request_body=request_body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling BulkEnhanceEndpointApi->enhance_bulkjob: %s\n" % e)
 ```
 
 ### Parameters
@@ -117,7 +120,6 @@ Name | Type | Description  | Notes
  **mode** | **str**| &#x60;mode&#x3D;refresh&#x60; indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data. | [optional] 
  **non_canonical_facts** | **str**| &#x60;nonCanonicalFacts&#x3D;true&#x60; returns non-canonical facts. | [optional] 
  **jsonmode** | **str**| &#x60;jsonmode&#x3D;extended&#x60; returns origin information for facts. | [optional] 
- **lead_iq_token** | **str**| leadIQ token | [optional] 
  **rocket_reach_token** | **str**| rocketReach token | [optional] 
  **webhookurl** | **str**| Webhook URL | [optional] 
  **x_diffbot_request_id** | **str**| Request UUID for tracking. If available, will be set on response. | [optional] 
@@ -160,22 +162,24 @@ Poll a bulk Enhance job
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
-# Create an instance of the API class
-api_instance = diffbot_enhance.BulkEnhanceEndpointApi()
-bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
+# Enter a context with an instance of the API client
+with diffbot_enhance_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = diffbot_enhance_client.BulkEnhanceEndpointApi(api_client)
+    bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
 token = 'token_example' # str | Diffbot Token (optional)
 csvmode = 'csvmode_example' # str | Return results as csv (optional)
 
-try:
-    # Bulk Enhance Poll Endpoint
-    api_response = api_instance.poll_bulkjob(bulkjob_id, token=token, csvmode=csvmode)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling BulkEnhanceEndpointApi->poll_bulkjob: %s\n" % e)
+    try:
+        # Bulk Enhance Poll Endpoint
+        api_response = api_instance.poll_bulkjob(bulkjob_id, token=token, csvmode=csvmode)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling BulkEnhanceEndpointApi->poll_bulkjob: %s\n" % e)
 ```
 
 ### Parameters
@@ -223,21 +227,23 @@ Stop an incomplete job
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
-# Create an instance of the API class
-api_instance = diffbot_enhance.BulkEnhanceEndpointApi()
-bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
+# Enter a context with an instance of the API client
+with diffbot_enhance_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = diffbot_enhance_client.BulkEnhanceEndpointApi(api_client)
+    bulkjob_id = 'bulkjob_id_example' # str | Bulkjob Id
 token = 'token_example' # str | Diffbot Token (optional)
 
-try:
-    # Bulkjob stop
-    api_response = api_instance.stop_bulkjob(bulkjob_id, token=token)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling BulkEnhanceEndpointApi->stop_bulkjob: %s\n" % e)
+    try:
+        # Bulkjob stop
+        api_response = api_instance.stop_bulkjob(bulkjob_id, token=token)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling BulkEnhanceEndpointApi->stop_bulkjob: %s\n" % e)
 ```
 
 ### Parameters

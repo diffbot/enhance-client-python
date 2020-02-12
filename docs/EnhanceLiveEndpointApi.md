@@ -1,4 +1,4 @@
-# diffbot_enhance.EnhanceLiveEndpointApi
+# diffbot_enhance_client.EnhanceLiveEndpointApi
 
 All URIs are relative to *https://kg.diffbot.com*
 
@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **enhance**
-> EnhanceResponse enhance(token=token, type=type, id=id, name=name, url=url, phone=phone, email=email, description=description, employer=employer, title=title, school=school, location=location, mode=mode, non_canonical_facts=non_canonical_facts, jsonmode=jsonmode, lead_iq_token=lead_iq_token, rocket_reach_token=rocket_reach_token, x_diffbot_request_id=x_diffbot_request_id)
+> EnhanceResponse enhance(token=token, type=type, id=id, name=name, url=url, phone=phone, email=email, description=description, employer=employer, title=title, school=school, location=location, mode=mode, non_canonical_facts=non_canonical_facts, jsonmode=jsonmode, rocket_reach_token=rocket_reach_token, x_diffbot_request_id=x_diffbot_request_id)
 
 Live Enhance Endpoint
 
@@ -19,13 +19,15 @@ Enhance endpoint to find person or organization using partial data
 ```python
 from __future__ import print_function
 import time
-import diffbot_enhance
-from diffbot_enhance.rest import ApiException
+import diffbot_enhance_client
+from diffbot_enhance_client.rest import ApiException
 from pprint import pprint
 
-# Create an instance of the API class
-api_instance = diffbot_enhance.EnhanceLiveEndpointApi()
-token = 'token_example' # str | Diffbot Token (optional)
+# Enter a context with an instance of the API client
+with diffbot_enhance_client.ApiClient() as api_client:
+    # Create an instance of the API class
+    api_instance = diffbot_enhance_client.EnhanceLiveEndpointApi(api_client)
+    token = 'token_example' # str | Diffbot Token (optional)
 type = 'type_example' # str | Diffbot entity type (optional)
 id = 'id_example' # str | DiffbotId of entity to enhance. Parameter can be used with types `Person` and `Organization` (optional)
 name = 'name_example' # str | Name of the entity to enhance. Parameter can be used with types `Person` and `Organization` (optional)
@@ -40,16 +42,15 @@ location = 'location_example' # str | Location of the entity to enhance. Paramet
 mode = 'mode_example' # str | `mode=refresh` indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data. (optional)
 non_canonical_facts = 'non_canonical_facts_example' # str | `nonCanonicalFacts=true` returns non-canonical facts. (optional)
 jsonmode = 'jsonmode_example' # str | `jsonmode=extended` returns origin information for facts. (optional)
-lead_iq_token = 'lead_iq_token_example' # str | leadIQ token (optional)
 rocket_reach_token = 'rocket_reach_token_example' # str | rocketReach token (optional)
 x_diffbot_request_id = 'x_diffbot_request_id_example' # str | Request UUID for tracking. If available, will be set on response. (optional)
 
-try:
-    # Live Enhance Endpoint
-    api_response = api_instance.enhance(token=token, type=type, id=id, name=name, url=url, phone=phone, email=email, description=description, employer=employer, title=title, school=school, location=location, mode=mode, non_canonical_facts=non_canonical_facts, jsonmode=jsonmode, lead_iq_token=lead_iq_token, rocket_reach_token=rocket_reach_token, x_diffbot_request_id=x_diffbot_request_id)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling EnhanceLiveEndpointApi->enhance: %s\n" % e)
+    try:
+        # Live Enhance Endpoint
+        api_response = api_instance.enhance(token=token, type=type, id=id, name=name, url=url, phone=phone, email=email, description=description, employer=employer, title=title, school=school, location=location, mode=mode, non_canonical_facts=non_canonical_facts, jsonmode=jsonmode, rocket_reach_token=rocket_reach_token, x_diffbot_request_id=x_diffbot_request_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling EnhanceLiveEndpointApi->enhance: %s\n" % e)
 ```
 
 ### Parameters
@@ -71,7 +72,6 @@ Name | Type | Description  | Notes
  **mode** | **str**| &#x60;mode&#x3D;refresh&#x60; indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data. | [optional] 
  **non_canonical_facts** | **str**| &#x60;nonCanonicalFacts&#x3D;true&#x60; returns non-canonical facts. | [optional] 
  **jsonmode** | **str**| &#x60;jsonmode&#x3D;extended&#x60; returns origin information for facts. | [optional] 
- **lead_iq_token** | **str**| leadIQ token | [optional] 
  **rocket_reach_token** | **str**| rocketReach token | [optional] 
  **x_diffbot_request_id** | **str**| Request UUID for tracking. If available, will be set on response. | [optional] 
 
