@@ -19,103 +19,6 @@ tags:
 - name: Enhance Live Endpoint
   description: Enhance Live Endpoint
 paths:
-  /kg/enhance_endpoint/bulk:
-    post:
-      tags:
-      - Bulk Enhance Endpoint
-      summary: Bulk Enhance Endpoint
-      description: Enhance endpoint to find person or organization using partial data
-      operationId: enhanceBulkjob
-      parameters:
-      - name: token
-        in: query
-        description: Diffbot Token
-        schema:
-          type: string
-      - name: tag
-        in: query
-        description: Tag
-        schema:
-          type: array
-          items:
-            type: string
-      - name: mode
-        in: query
-        description: '`mode=refresh` indicates that Diffbot will attempt to recrawl
-          all the origins of the identified entity and reconstruct the returned entity
-          from this refreshed data.'
-        schema:
-          type: string
-      - name: nonCanonicalFacts
-        in: query
-        description: '`nonCanonicalFacts=true` returns non-canonical facts.'
-        schema:
-          type: string
-      - name: jsonmode
-        in: query
-        description: '`jsonmode=extended` returns origin information for facts.'
-        schema:
-          type: string
-      - name: rocketReachToken
-        in: query
-        description: rocketReach token
-        schema:
-          type: string
-      - name: webhookurl
-        in: query
-        description: Webhook URL
-        schema:
-          type: string
-      - name: X-Diffbot-RequestId
-        in: header
-        description: Request UUID for tracking. If available, will be set on response.
-        schema:
-          type: string
-      requestBody:
-        description: Bulk query payload
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
-      responses:
-        "200":
-          description: Acknowledgement with bulkjobId
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BulkjobAccepted'
-        "400":
-          description: Error parsing request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
-        "401":
-          description: Token not specified or other client errors
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
-        "429":
-          description: Insufficient credits
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
-        "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
-        "503":
-          description: Request too large
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestError'
   /kg/enhance_endpoint/bulk/{bulkjobId}/stop:
     get:
       tags:
@@ -218,6 +121,103 @@ paths:
                 $ref: '#/components/schemas/RequestError'
         "500":
           description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+  /kg/enhance_endpoint/bulk:
+    post:
+      tags:
+      - Bulk Enhance Endpoint
+      summary: Bulk Enhance Endpoint
+      description: Enhance endpoint to find person or organization using partial data
+      operationId: enhanceBulkjob
+      parameters:
+      - name: token
+        in: query
+        description: Diffbot Token
+        schema:
+          type: string
+      - name: tag
+        in: query
+        description: Tag
+        schema:
+          type: array
+          items:
+            type: string
+      - name: mode
+        in: query
+        description: '`mode=refresh` indicates that Diffbot will attempt to recrawl
+          all the origins of the identified entity and reconstruct the returned entity
+          from this refreshed data.'
+        schema:
+          type: string
+      - name: nonCanonicalFacts
+        in: query
+        description: '`nonCanonicalFacts=true` returns non-canonical facts.'
+        schema:
+          type: string
+      - name: jsonmode
+        in: query
+        description: '`jsonmode=extended` returns origin information for facts.'
+        schema:
+          type: string
+      - name: rocketReachToken
+        in: query
+        description: rocketReach token
+        schema:
+          type: string
+      - name: webhookurl
+        in: query
+        description: Webhook URL
+        schema:
+          type: string
+      - name: X-Diffbot-RequestId
+        in: header
+        description: Request UUID for tracking. If available, will be set on response.
+        schema:
+          type: string
+      requestBody:
+        description: Bulk query payload
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+      responses:
+        "200":
+          description: Acknowledgement with bulkjobId
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkjobAccepted'
+        "400":
+          description: Error parsing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        "401":
+          description: Token not specified or other client errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        "429":
+          description: Insufficient credits
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestError'
+        "503":
+          description: Request too large
           content:
             application/json:
               schema:
@@ -425,28 +425,6 @@ paths:
                 $ref: '#/components/schemas/RequestError'
 components:
   schemas:
-    BulkjobAccepted:
-      type: object
-      properties:
-        job_id:
-          type: string
-          description: Bulkjob Id for checking status and downloading results
-    RequestError:
-      type: object
-      properties:
-        error:
-          type: boolean
-          description: Always `true`
-        code:
-          type: integer
-          description: Error code (same as the HTTP status code)
-          format: int32
-        message:
-          type: string
-          description: Error message
-        query:
-          type: object
-          description: Submitted Enhance query
     BulkjobRecoveryStatusResponse:
       type: object
       properties:
@@ -464,6 +442,22 @@ components:
         message:
           type: string
           description: Bulkjob recovery status message
+    RequestError:
+      type: object
+      properties:
+        error:
+          type: boolean
+          description: Always `true`
+        code:
+          type: integer
+          description: Error code (same as the HTTP status code)
+          format: int32
+        message:
+          type: string
+          description: Error message
+        query:
+          type: object
+          description: Submitted Enhance query
     BulkjobStatus:
       type: object
       properties:
@@ -508,6 +502,12 @@ components:
           format: int32
         content:
           $ref: '#/components/schemas/BulkjobStatus'
+    BulkjobAccepted:
+      type: object
+      properties:
+        job_id:
+          type: string
+          description: Bulkjob Id for checking status and downloading results
     EnhanceResponse:
       type: object
       properties:

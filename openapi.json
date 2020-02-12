@@ -25,149 +25,6 @@
     "description" : "Enhance Live Endpoint"
   } ],
   "paths" : {
-    "/kg/enhance_endpoint/bulk" : {
-      "post" : {
-        "tags" : [ "Bulk Enhance Endpoint" ],
-        "summary" : "Bulk Enhance Endpoint",
-        "description" : "Enhance endpoint to find person or organization using partial data",
-        "operationId" : "enhanceBulkjob",
-        "parameters" : [ {
-          "name" : "token",
-          "in" : "query",
-          "description" : "Diffbot Token",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "tag",
-          "in" : "query",
-          "description" : "Tag",
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        }, {
-          "name" : "mode",
-          "in" : "query",
-          "description" : "`mode=refresh` indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data.",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "nonCanonicalFacts",
-          "in" : "query",
-          "description" : "`nonCanonicalFacts=true` returns non-canonical facts.",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "jsonmode",
-          "in" : "query",
-          "description" : "`jsonmode=extended` returns origin information for facts.",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "rocketReachToken",
-          "in" : "query",
-          "description" : "rocketReach token",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "webhookurl",
-          "in" : "query",
-          "description" : "Webhook URL",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "X-Diffbot-RequestId",
-          "in" : "header",
-          "description" : "Request UUID for tracking. If available, will be set on response.",
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "Bulk query payload",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "type" : "array",
-                "items" : {
-                  "type" : "object"
-                }
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Acknowledgement with bulkjobId",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/BulkjobAccepted"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Error parsing request",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          },
-          "401" : {
-            "description" : "Token not specified or other client errors",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          },
-          "429" : {
-            "description" : "Insufficient credits",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          },
-          "503" : {
-            "description" : "Request too large",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/kg/enhance_endpoint/bulk/{bulkjobId}/stop" : {
       "get" : {
         "tags" : [ "Bulk Enhance Endpoint" ],
@@ -319,6 +176,149 @@
           },
           "500" : {
             "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kg/enhance_endpoint/bulk" : {
+      "post" : {
+        "tags" : [ "Bulk Enhance Endpoint" ],
+        "summary" : "Bulk Enhance Endpoint",
+        "description" : "Enhance endpoint to find person or organization using partial data",
+        "operationId" : "enhanceBulkjob",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "query",
+          "description" : "Diffbot Token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "tag",
+          "in" : "query",
+          "description" : "Tag",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "mode",
+          "in" : "query",
+          "description" : "`mode=refresh` indicates that Diffbot will attempt to recrawl all the origins of the identified entity and reconstruct the returned entity from this refreshed data.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "nonCanonicalFacts",
+          "in" : "query",
+          "description" : "`nonCanonicalFacts=true` returns non-canonical facts.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "jsonmode",
+          "in" : "query",
+          "description" : "`jsonmode=extended` returns origin information for facts.",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "rocketReachToken",
+          "in" : "query",
+          "description" : "rocketReach token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "webhookurl",
+          "in" : "query",
+          "description" : "Webhook URL",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "X-Diffbot-RequestId",
+          "in" : "header",
+          "description" : "Request UUID for tracking. If available, will be set on response.",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Bulk query payload",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "object"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Acknowledgement with bulkjobId",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BulkjobAccepted"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error parsing request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token not specified or other client errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "429" : {
+            "description" : "Insufficient credits",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "503" : {
+            "description" : "Request too large",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -608,12 +608,17 @@
   },
   "components" : {
     "schemas" : {
-      "BulkjobAccepted" : {
+      "BulkjobRecoveryStatusResponse" : {
         "type" : "object",
         "properties" : {
-          "job_id" : {
+          "status" : {
             "type" : "string",
-            "description" : "Bulkjob Id for checking status and downloading results"
+            "description" : "Bulkjob recovery status",
+            "enum" : [ "NOT_STARTED", "IN_PROCESS", "COMPLETE", "COMPLETE_WITH_FAILURES", "STOPPED", "ERROR_FINALIZING", "UNKNOWN" ]
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Bulkjob recovery status message"
           }
         }
       },
@@ -636,20 +641,6 @@
           "query" : {
             "type" : "object",
             "description" : "Submitted Enhance query"
-          }
-        }
-      },
-      "BulkjobRecoveryStatusResponse" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "type" : "string",
-            "description" : "Bulkjob recovery status",
-            "enum" : [ "NOT_STARTED", "IN_PROCESS", "COMPLETE", "COMPLETE_WITH_FAILURES", "STOPPED", "ERROR_FINALIZING", "UNKNOWN" ]
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "Bulkjob recovery status message"
           }
         }
       },
@@ -697,6 +688,15 @@
           },
           "content" : {
             "$ref" : "#/components/schemas/BulkjobStatus"
+          }
+        }
+      },
+      "BulkjobAccepted" : {
+        "type" : "object",
+        "properties" : {
+          "job_id" : {
+            "type" : "string",
+            "description" : "Bulkjob Id for checking status and downloading results"
           }
         }
       },
