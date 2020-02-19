@@ -69,6 +69,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestError'
+      x-group-parameters: true
   /kg/enhance_endpoint/bulk/{bulkjobId}/status:
     get:
       tags:
@@ -125,6 +126,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestError'
+      x-group-parameters: true
   /kg/enhance_endpoint/bulk:
     post:
       tags:
@@ -222,6 +224,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestError'
+      x-group-parameters: true
   /kg/enhance_endpoint/bulk/{bulkjobId}:
     get:
       tags:
@@ -283,6 +286,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestError'
+      x-group-parameters: true
   /kg/enhance_endpoint:
     get:
       tags:
@@ -423,6 +427,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RequestError'
+      x-group-parameters: true
 components:
   schemas:
     BulkjobRecoveryStatusResponse:

@@ -15,7 +15,7 @@
 
 from __future__ import absolute_import
 
-__version__ = "1.0.0-rc.04"
+__version__ = "1.0.0-rc.05"
 
 # import apis into sdk package
 from diffbot_enhance_client.api.bulk_enhance_endpoint_api import BulkEnhanceEndpointApi

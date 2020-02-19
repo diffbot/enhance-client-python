@@ -14,7 +14,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "diffbot_enhance_client"
-VERSION = "1.0.0-rc.04"
+VERSION = "1.0.0-rc.05"
 # To install the library, run the following
 #
 # python setup.py install

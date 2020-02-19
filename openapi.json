@@ -98,7 +98,8 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
       }
     },
     "/kg/enhance_endpoint/bulk/{bulkjobId}/status" : {
@@ -184,7 +185,8 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
       }
     },
     "/kg/enhance_endpoint/bulk" : {
@@ -327,7 +329,8 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
       }
     },
     "/kg/enhance_endpoint/bulk/{bulkjobId}" : {
@@ -420,7 +423,8 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
       }
     },
     "/kg/enhance_endpoint" : {
@@ -602,7 +606,8 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
       }
     }
   },
