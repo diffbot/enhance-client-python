@@ -25,82 +25,6 @@
     "description" : "Enhance Live Endpoint"
   } ],
   "paths" : {
-    "/kg/enhance_endpoint/bulk/{bulkjobId}/stop" : {
-      "get" : {
-        "tags" : [ "Bulk Enhance Endpoint" ],
-        "summary" : "Bulkjob stop",
-        "description" : "Stop an incomplete job",
-        "operationId" : "stopBulkjob",
-        "parameters" : [ {
-          "name" : "token",
-          "in" : "query",
-          "description" : "Diffbot Token",
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "bulkjobId",
-          "in" : "path",
-          "description" : "Bulkjob Id",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Enhanced entity",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/BulkjobRecoveryStatusResponse"
-                }
-              }
-            }
-          },
-          "400" : {
-            "description" : "Invalid bulkjobId",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          },
-          "401" : {
-            "description" : "Token not specified or other client errors",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Bulkjob not found",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "Internal Server Error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/RequestError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/kg/enhance_endpoint/bulk/{bulkjobId}/status" : {
       "get" : {
         "tags" : [ "Bulk Enhance Endpoint" ],
@@ -184,7 +108,85 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
+      }
+    },
+    "/kg/enhance_endpoint/bulk/{bulkjobId}/stop" : {
+      "get" : {
+        "tags" : [ "Bulk Enhance Endpoint" ],
+        "summary" : "Bulkjob stop",
+        "description" : "Stop an incomplete job",
+        "operationId" : "stopBulkjob",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "query",
+          "description" : "Diffbot Token",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "bulkjobId",
+          "in" : "path",
+          "description" : "Bulkjob Id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Enhanced entity",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BulkjobRecoveryStatusResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Invalid bulkjobId",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Token not specified or other client errors",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Bulkjob not found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RequestError"
+                }
+              }
+            }
+          }
+        },
+        "x-group-parameters" : true
       }
     },
     "/kg/enhance_endpoint/bulk" : {
@@ -327,7 +329,8 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
       }
     },
     "/kg/enhance_endpoint/bulk/{bulkjobId}" : {
@@ -420,7 +423,8 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
       }
     },
     "/kg/enhance_endpoint" : {
@@ -602,48 +606,13 @@
               }
             }
           }
-        }
+        },
+        "x-group-parameters" : true
       }
     }
   },
   "components" : {
     "schemas" : {
-      "BulkjobRecoveryStatusResponse" : {
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "type" : "string",
-            "description" : "Bulkjob recovery status",
-            "enum" : [ "NOT_STARTED", "IN_PROCESS", "COMPLETE", "COMPLETE_WITH_FAILURES", "STOPPED", "ERROR_FINALIZING", "UNKNOWN" ]
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "Bulkjob recovery status message"
-          }
-        }
-      },
-      "RequestError" : {
-        "type" : "object",
-        "properties" : {
-          "error" : {
-            "type" : "boolean",
-            "description" : "Always `true`"
-          },
-          "code" : {
-            "type" : "integer",
-            "description" : "Error code (same as the HTTP status code)",
-            "format" : "int32"
-          },
-          "message" : {
-            "type" : "string",
-            "description" : "Error message"
-          },
-          "query" : {
-            "type" : "object",
-            "description" : "Submitted Enhance query"
-          }
-        }
-      },
       "BulkjobStatus" : {
         "type" : "object",
         "properties" : {
@@ -688,6 +657,42 @@
           },
           "content" : {
             "$ref" : "#/components/schemas/BulkjobStatus"
+          }
+        }
+      },
+      "RequestError" : {
+        "type" : "object",
+        "properties" : {
+          "error" : {
+            "type" : "boolean",
+            "description" : "Always `true`"
+          },
+          "code" : {
+            "type" : "integer",
+            "description" : "Error code (same as the HTTP status code)",
+            "format" : "int32"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Error message"
+          },
+          "query" : {
+            "type" : "object",
+            "description" : "Submitted Enhance query"
+          }
+        }
+      },
+      "BulkjobRecoveryStatusResponse" : {
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Bulkjob recovery status",
+            "enum" : [ "NOT_STARTED", "IN_PROCESS", "COMPLETE", "COMPLETE_WITH_FAILURES", "STOPPED", "ERROR_FINALIZING", "UNKNOWN" ]
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Bulkjob recovery status message"
           }
         }
       },
